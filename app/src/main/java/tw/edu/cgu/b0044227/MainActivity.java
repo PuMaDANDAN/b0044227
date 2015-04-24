@@ -4,17 +4,32 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private Button btn1;
+    private EditText edt1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btn1 =(Button) findViewById(R.id.btn1);
+        edt1 = (EditText)findViewById(R.id.edt1);
+        btn1.setText("submit");
+        send();
     }
 
-
+    private void send() {
+        String text = edt1.getText().toString();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
