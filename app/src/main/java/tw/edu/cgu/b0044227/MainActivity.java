@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,12 +24,20 @@ public class MainActivity extends ActionBarActivity {
         btn1 =(Button) findViewById(R.id.btn1);
         edt1 = (EditText)findViewById(R.id.edt1);
         btn1.setText("submit");
+        edt1.setText("new text");
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                send();
+            }
+        });
         send();
     }
 
     private void send() {
         String text = edt1.getText().toString();
-        Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
