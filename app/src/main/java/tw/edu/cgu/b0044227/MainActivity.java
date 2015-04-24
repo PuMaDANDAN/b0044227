@@ -2,6 +2,8 @@ package tw.edu.cgu.b0044227;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,12 +34,24 @@ public class MainActivity extends ActionBarActivity {
                 send();
             }
         });
-        send();
+    edt1.setOnKeyListener(new View.OnKeyListener() {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                send();
+                return true;
+            }
+            Log.d("debug", "keycode = " + keyCode);
+            return false;
+        }
+    });
     }
+
 
     private void send() {
         String text = edt1.getText().toString();
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        edt1.setText("");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
