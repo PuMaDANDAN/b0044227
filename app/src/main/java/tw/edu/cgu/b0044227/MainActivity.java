@@ -47,30 +47,30 @@ public class MainActivity extends ActionBarActivity {
                 send();
             }
         });
-    edt1.setOnKeyListener(new View.OnKeyListener() {
+        edt1.setOnKeyListener(new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
 
             String text = edt1.getText().toString();
             editor.putString("text",text);
             editor.commit();
-
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    editor.putBoolean("checkbox",isChecked);
-                    editor.commit();
-                }
-            });
-
+            Log.d("debug", "keycode = " + keyCode);
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                 send();
                 return true;
             }
-            Log.d("debug", "keycode = " + keyCode);
             return false;
         }
     });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putBoolean("checkbox",isChecked);
+                editor.commit();
+            }
+        });
+
     }
 
 
