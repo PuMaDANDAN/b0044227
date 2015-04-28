@@ -1,5 +1,7 @@
 package tw.edu.cgu.b0044227;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,7 +20,9 @@ public class MainActivity extends ActionBarActivity {
 
     private Button btn1;
     private EditText edt1;
-
+    private CheckBox checkBox;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -25,8 +31,15 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         btn1 =(Button) findViewById(R.id.btn1);
         edt1 = (EditText)findViewById(R.id.edt1);
+        checkBox = (CheckBox)findViewById(R.id.checkBox);
+
+        sp = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        editor = sp.edit();
+
         btn1.setText("submit");
-        edt1.setText("new text");
+        edt1.setText(sp.getString("text",""));
+        boolean b = sp.getBoolean("checkbox",false);
+        checkBox.setChecked(b);
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +50,19 @@ public class MainActivity extends ActionBarActivity {
     edt1.setOnKeyListener(new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+            String text = edt1.getText().toString();
+            editor.putString("text",text);
+            editor.commit();
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    editor.putBoolean("checkbox",isChecked);
+                    editor.commit();
+                }
+            });
+
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                 send();
                 return true;
@@ -50,6 +76,9 @@ public class MainActivity extends ActionBarActivity {
 
     private void send() {
         String text = edt1.getText().toString();
+        if (checkBox.isChecked()){
+            text = "*****";
+        }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         edt1.setText("");
     }
