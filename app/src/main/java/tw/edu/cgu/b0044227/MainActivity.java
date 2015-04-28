@@ -54,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
             String text = edt1.getText().toString();
             editor.putString("text",text);
             editor.commit();
+
             Log.d("debug", "keycode = " + keyCode);
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                 send();
@@ -79,6 +80,9 @@ public class MainActivity extends ActionBarActivity {
         if (checkBox.isChecked()){
             text = "*****";
         }
+
+        Utils.writeFile(this,"history",text + "\n");
+
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         edt1.setText("");
     }
