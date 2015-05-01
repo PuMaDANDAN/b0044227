@@ -1,6 +1,7 @@
 package tw.edu.cgu.b0044227;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -79,6 +80,12 @@ public class MainActivity extends ActionBarActivity {
             }
         });
         updateHistory();
+    }
+
+    public void goToOrderActivity(View view){
+        Intent intent = new Intent();
+        intent.setClass(this, OrderActivity.class);
+        startActivity(intent);
     }
 
     private void updateHistory() {
