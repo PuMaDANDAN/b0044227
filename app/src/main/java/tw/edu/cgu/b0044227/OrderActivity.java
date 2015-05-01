@@ -2,11 +2,13 @@ package tw.edu.cgu.b0044227;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +42,14 @@ public class OrderActivity extends ActionBarActivity {
             blackTea.put("name", "black-tea");
             blackTea.put("L", Integer.parseInt(blackTeaL));
             blackTea.put("M", Integer.parseInt(blackTeaM));
+            JSONObject milkTea = new JSONObject();
+            milkTea.put("name", "milk-tea");
+            milkTea.put("L", Integer.parseInt(milkTeaL));
+            milkTea.put("M", Integer.parseInt(milkTeaM));
+            JSONArray order = new JSONArray();
+            order.put(blackTea);
+            order.put(milkTea);
+            Log.d("debug", order.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
